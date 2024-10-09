@@ -1,7 +1,6 @@
-import 'dart:typed_data';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:ui';
 import 'package:share_files_and_screenshot_widgets/share_files_and_screenshot_widgets.dart';
 
 void main() {
@@ -24,16 +23,16 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
   final String title;
+
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Image _image;
+  late Image _image;
 
   GlobalKey previewContainer = new GlobalKey();
   int originalSize = 800;
@@ -92,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               setState(() {
                                 _image = value;
                               });
-                            });
+                            } as FutureOr<Null> Function(Image? value));
                           }),
                     ),
                     Container(
